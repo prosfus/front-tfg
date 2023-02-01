@@ -11,7 +11,7 @@ export const LoginPage: React.FC = () => {
             Videcalls
           </h1>
 
-          <button className="bg-secondary-nose flex flex-row items-center justify-around gap-10 border shadow-purple border-secondary-gray text-[48px] text-white px-28 py-10 rounded-lg">
+          <button className="bg-secondary-nose flex flex-row items-center justify-around gap-10 border shadow-purple transition duration-200 hover:duration-200 hover:shadow-orange border-secondary-gray text-[48px] text-white px-28 py-10 rounded-lg">
             <GoogleLogo /> Log in
           </button>
         </div>

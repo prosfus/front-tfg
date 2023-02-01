@@ -17,6 +17,7 @@ module.exports = {
       },
       boxShadow: {
         purple: "0px 3px 5px #6620A2",
+        orange: "0px 3px 5px #FF7E33",
       },
     },
   },
