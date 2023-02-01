@@ -11,7 +11,12 @@ module.exports = {
         },
         secondary: {
           main: "#FF7E33",
+          gray: "#334155",
+          nose: "#1E293B",
         },
+      },
+      boxShadow: {
+        purple: "0px 3px 5px #6620A2",
       },
     },
   },
