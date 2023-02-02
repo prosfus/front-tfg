@@ -1,7 +1,10 @@
 import { AppLayout } from "../components/Layout/Layout";
 import { GoogleLogo } from "../assets/googleLogo";
+import { firebaseConfig } from "../services/firebase/config";
 
 export const LoginPage: React.FC = () => {
+  console.log(firebaseConfig);
+
   return (
     <AppLayout>
       <div className=" h-screen w-screen flex items-center justify-center">
