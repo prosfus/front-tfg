@@ -8,7 +8,7 @@ export const LoginPage: React.FC = () => {
   return (
     <AppLayout>
       <div className=" h-screen w-screen flex items-center justify-center">
-        <div className="flex flex-row items-center justify-around w-2/3">
+        <div className="flex flex-row max-lg:flex-col items-center justify-center gap-52 max-xl:gap-32 w-full ">
           <h1 className="text-white font-bold text-[96px]">
             WebRTC <br />
             Videcalls
