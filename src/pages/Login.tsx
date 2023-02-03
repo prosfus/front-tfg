@@ -1,9 +1,20 @@
 import { AppLayout } from "../components/Layout/Layout";
 import { GoogleLogo } from "../assets/googleLogo";
 import { firebaseConfig } from "../services/firebase/config";
+import { loginWithGoogle } from "../services/firebase/util/loginWithGoogle";
+import { useEffect } from "react";
+import { initFirebase } from "../services/firebase/util/initFirebase";
 
 export const LoginPage: React.FC = () => {
-  console.log(firebaseConfig);
+  useEffect(() => {
+    initFirebase();
+  }, []);
+
+  function handleLogin() {
+    loginWithGoogle().then((response) => {
+      console.log("response", response);
+    });
+  }
 
   return (
     <AppLayout>
@@ -14,7 +25,10 @@ export const LoginPage: React.FC = () => {
             Videcalls
           </h1>
 
-          <button className="bg-secondary-nose flex flex-row items-center justify-around gap-10 border shadow-purple transition duration-200 hover:duration-200 hover:shadow-orange border-secondary-gray text-[48px] text-white px-28 py-10 rounded-lg">
+          <button
+            onClick={handleLogin}
+            className="bg-secondary-nose flex flex-row items-center justify-around gap-10 border shadow-purple transition duration-200 hover:duration-200 hover:shadow-orange border-secondary-gray text-[48px] text-white px-28 py-10 rounded-lg"
+          >
             <GoogleLogo /> Log in
           </button>
         </div>
