@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { initFirebase } from "../services/firebase/util/initFirebase";
 import { loginUser } from "../services/user/domain/loginUser";
 import { getIsLoggedStore } from "../services/user/infrastructure/getIsLoggedStore";
+import { Navigate } from "react-router";
 
 export const LoginPage: React.FC = () => {
   const isLogged = getIsLoggedStore(true);
@@ -23,6 +24,10 @@ export const LoginPage: React.FC = () => {
       .catch((error) => {
         console.log("Popover closed");
       });
+  }
+
+  if (isLogged) {
+    return <Navigate to="/dashboard" />;
   }
 
   return (
