@@ -4,16 +4,25 @@ import { firebaseConfig } from "../services/firebase/config";
 import { loginWithGoogle } from "../services/firebase/util/loginWithGoogle";
 import { useEffect } from "react";
 import { initFirebase } from "../services/firebase/util/initFirebase";
+import { loginUser } from "../services/user/domain/loginUser";
+import { getIsLoggedStore } from "../services/user/infrastructure/getIsLoggedStore";
 
 export const LoginPage: React.FC = () => {
+  const isLogged = getIsLoggedStore(true);
+  console.log(isLogged);
+
   useEffect(() => {
     initFirebase();
   }, []);
 
   function handleLogin() {
-    loginWithGoogle().then((response) => {
-      console.log("response", response);
-    });
+    loginWithGoogle()
+      .then((response) => {
+        loginUser(response);
+      })
+      .catch((error) => {
+        console.log("Popover closed");
+      });
   }
 
   return (
@@ -22,7 +31,7 @@ export const LoginPage: React.FC = () => {
         <div className="flex flex-row max-lg:flex-col items-center justify-center gap-52 max-xl:gap-32 w-full ">
           <h1 className="text-white font-bold text-[96px]">
             WebRTC <br />
-            Videcalls
+            Videocalls
           </h1>
 
           <button
