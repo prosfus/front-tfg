@@ -10,7 +10,6 @@ import { Navigate } from "react-router";
 
 export const LoginPage: React.FC = () => {
   const isLogged = getIsLoggedStore(true);
-  console.log(isLogged);
 
   useEffect(() => {
     initFirebase();
