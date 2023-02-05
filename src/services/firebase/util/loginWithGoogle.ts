@@ -1,4 +1,5 @@
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getFirebaseAuth } from "./initFirebase";
 
 /** Login with google
  *
@@ -8,7 +9,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  const auth = getAuth();
+  const auth = getFirebaseAuth();
   const result = await signInWithPopup(auth, provider);
 
   return result;

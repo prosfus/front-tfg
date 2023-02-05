@@ -13,7 +13,7 @@ export const loginUser = (response: UserCredential) => {
 
   if (displayName) {
     const user: User = {
-      displayName: displayName,
+      name: displayName,
       id: response.user.uid,
     };
     setIsLoggedStore(true);

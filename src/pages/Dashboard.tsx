@@ -1,16 +1,24 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { AppLayout } from "../components/Layout/Layout";
+import { OnlineUserCard } from "../components/OnlineUsers/OnlineUserCard";
+import { getIsLoggedDomain } from "../services/user/domain/getIsLoggedDomain";
 import { initWebsocket } from "../services/websocket/initWebsocket";
 
 export const DashboardPage: React.FC = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
-    initWebsocket();
+    const isLogged = getIsLoggedDomain(false);
+    if (!isLogged) {
+      navigate("/");
+    } else initWebsocket();
   }, []);
 
   return (
     <AppLayout>
-      <div className="h-screen w-screen flex items-center justify-center">
-        <h1 className="text-white font-bold text-[96px]">Dashboard</h1>
+      <div className="h-screen w-screen flex items-start justify-center">
+        <OnlineUserCard />
       </div>
     </AppLayout>
   );
