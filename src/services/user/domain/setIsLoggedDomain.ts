@@ -5,5 +5,5 @@ import { setIsLoggedStore } from "../infrastructure/setIsLoggedStore";
  * @param isLogged - the boolean value to set
  */
 export const setIsLoggedDomain = (isLogged: boolean) => {
-  setIsLoggedStore(true);
+  setIsLoggedStore(isLogged);
 };
