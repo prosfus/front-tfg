@@ -1,14 +1,22 @@
 import { PhoneSvg } from "../../assets/phoneSvg";
 import { User } from "../../models/user";
+import { CallFunctions } from "../../services/peer/initPeer";
 
 interface Props {
   user: User;
 }
 
 export const OnlineUserCard: React.FC<Props> = ({ user }) => {
+  const handleCall = () => {
+    CallFunctions.startCall(user);
+  };
+
   return (
     <>
-      <div className="group relative flex cursor-pointer items-center justify-center">
+      <div
+        onClick={handleCall}
+        className="group relative flex cursor-pointer items-center justify-center"
+      >
         <div className="bg-secondary-nose z-10  w-[338px] h-[112px] text-4xl flex flex-row items-center justify-around gap-10 border shadow-purple transition duration-300 hover:duration-300 group-hover:shadow-orange border-secondary-gray text-[48px] text-white rounded-lg">
           {user.name}
         </div>

@@ -13,6 +13,7 @@ module.exports = {
           main: "#FF7E33",
           gray: "#334155",
           nose: "#1E293B",
+          gray2: "#D9D9D9",
         },
       },
       boxShadow: {

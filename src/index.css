@@ -21,3 +21,29 @@ body {
     rgba(15, 23, 42, 0.38) 100%
   );
 }
+
+.backgroundOrangeShadow {
+  background: radial-gradient(
+    115.88% 115.88% at 50% -15.88%,
+    #ff7e33 0%,
+    #d9d9d9 100%
+  );
+}
+
+.notificationsTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 42px;
+
+  background: linear-gradient(
+    271.38deg,
+    #0f172a 2.84%,
+    #6620a2 51.11%,
+    #ff7e33 99.52%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
