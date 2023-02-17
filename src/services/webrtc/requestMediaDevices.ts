@@ -1,10 +1,14 @@
 let WEBRRTC_STREAM: MediaStream;
 
 export const requestMediaDevices = () => {
-  navigator.mediaDevices
+  return navigator.mediaDevices
     .getUserMedia({ video: true, audio: true })
     .then((stream) => {
       WEBRRTC_STREAM = stream;
+      return stream;
+    })
+    .catch((e) => {
+      console.log("Error al obtener los dispositivos de audio y video ", e);
     });
 };
 

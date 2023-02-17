@@ -1,10 +1,10 @@
 //Create notifications slice
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../../models/user";
+import { Notification } from "../../../models/calls";
 
 interface CallsSliceState {
-  notifications: User[];
+  notifications: Notification[];
 }
 
 const initialState: CallsSliceState = {
@@ -14,7 +14,7 @@ const callsSlice = createSlice({
   name: "calls",
   initialState,
   reducers: {
-    setNotifications(state, action: PayloadAction<User[]>) {
+    setNotifications(state, action: PayloadAction<Notification[]>) {
       state.notifications = action.payload;
     },
   },

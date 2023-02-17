@@ -4,9 +4,9 @@ interface Props {
 
 export const AppLayout: React.FC<Props> = ({ children }) => {
   return (
-    <>
+    <div className="max-h-screen overflow-hidden">
       <div className="backgroundShadow -z-10 absolute w-screen h-[200px]"></div>
       {children}
-    </>
+    </div>
   );
 };
