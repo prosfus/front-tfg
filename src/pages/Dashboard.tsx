@@ -49,7 +49,7 @@ export const DashboardPage: React.FC = () => {
       <div className="max-h-screen w-screen flex flex-col items-center justify-start">
         <OnlineUsersList />
         <NotificationsPanel />
-        <div className="bg-red-500 w-screen">
+        <div className="w-screen">
           <video ref={clientVideoRef} autoPlay />
           <video id="remoteVideo" ref={remoteVideoRef} autoPlay />
         </div>
