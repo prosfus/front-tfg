@@ -31,18 +31,22 @@ export const LoginPage: React.FC = () => {
 
   return (
     <AppLayout>
-      <div className=" h-screen w-screen flex items-center justify-center">
-        <div className="flex flex-row max-lg:flex-col items-center justify-center gap-52 max-xl:gap-32 w-full ">
-          <h1 className="text-white font-bold text-[96px]">
-            WebRTC <br />
-            Videocalls
-          </h1>
-
+      <div className=" h-screen w-screen flex flex-col items-center justify-center gap-10">
+        <h1 className="text-white font-semibold text-[89px] text-center">
+          Videocalls web app <br /> with WebRTC
+        </h1>
+        <div className="flex flex-row gap-10">
           <button
             onClick={handleLogin}
-            className="bg-secondary-nose flex flex-row items-center justify-around gap-10 border shadow-purple transition duration-200 hover:duration-200 hover:shadow-orange border-secondary-gray text-[48px] text-white px-28 py-10 rounded-lg"
+            className="bg-white text-2xl p-3 px-6 text-black font-bold rounded-md shadow-xl flex flex-row items-center justify-around gap-3 transition duration-400 hover:duration-400 hover:bg-white/80"
           >
-            <GoogleLogo /> Log in
+            Log in
+          </button>
+          <button
+            onClick={handleLogin}
+            className="flex bg-black shadow-md text-white text-2xl p-3 px-6 font-bold rounded-md flex-row items-center justify-around gap-3 transition duration-400 hover:duration-400 hover:bg-black/40"
+          >
+            View docs
           </button>
         </div>
       </div>
