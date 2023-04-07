@@ -3,7 +3,7 @@ import { Notification } from "../../models/calls";
 import { User } from "../../models/user";
 import { getNotificationsDomain } from "../calls/domain/getNotificationsDomain";
 import { setNotificationsDomain } from "../calls/domain/setNotificationsStore";
-import { getStream } from "../webrtc/requestMediaDevices";
+import { getStream } from "../webrtc/domain/requestMediaDevices";
 
 let PEER: Peer;
 export const initPeer = (websocketId: string) => {

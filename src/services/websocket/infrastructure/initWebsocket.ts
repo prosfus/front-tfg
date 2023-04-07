@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
-import { User } from "../../models/user";
-import { setOnlineUsersDomain } from "../onlineUsers/domain/setOnlineUsersDomain";
-import { getUserDomain } from "../user/domain/getUserDomain";
-import { setWebsocketIdDomain } from "../user/domain/setWebsocketIdDomain";
+import { User } from "../../../models/user";
+import { setOnlineUsersDomain } from "../../onlineUsers/domain/setOnlineUsersDomain";
+import { getUserDomain } from "../../user/domain/getUserDomain";
+import { setWebsocketIdDomain } from "../../user/domain/setWebsocketIdDomain";
 
 const socket = io(
   import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:8080"

@@ -1,9 +1,9 @@
 import { AppLayout } from "../components/Layout/Layout";
 import Titul from "../assets/Titul_gran.png";
 import { firebaseConfig } from "../services/firebase/config";
-import { loginWithGoogle } from "../services/firebase/util/loginWithGoogle";
+import { loginWithGoogle } from "../services/firebase/infrastructure/loginWithGoogle";
 import { useEffect, useState } from "react";
-import { initFirebase } from "../services/firebase/util/initFirebase";
+import { initFirebase } from "../services/firebase/infrastructure/initFirebase";
 import { loginUser } from "../services/user/domain/loginUser";
 import { getIsLoggedStore } from "../services/user/infrastructure/getIsLoggedStore";
 import { Navigate } from "react-router";
@@ -11,27 +11,15 @@ import { motion } from "framer-motion";
 
 export const LoginPage: React.FC = () => {
   const isLogged = getIsLoggedStore(true);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  const animation = " ";
 
   useEffect(() => {
     initFirebase();
-    let timeout = setTimeout(() => {
-      setIsLoaded(true);
-    }, 1500);
-    return () => {
-      clearTimeout(timeout);
-    };
   }, []);
 
   function handleLogin() {
     loginWithGoogle()
       .then((response) => {
-        console.log("13");
-
         loginUser(response);
-        console.log("14");
       })
       .catch((error) => {
         console.log(error);

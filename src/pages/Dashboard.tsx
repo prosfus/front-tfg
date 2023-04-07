@@ -12,8 +12,8 @@ import { getWebsocketIdDomain } from "../services/user/domain/getWebsocketIdDoma
 import {
   getStream,
   requestMediaDevices,
-} from "../services/webrtc/requestMediaDevices";
-import { initWebsocket } from "../services/websocket/initWebsocket";
+} from "../services/webrtc/domain/requestMediaDevices";
+import { initWebsocket } from "../services/websocket/infrastructure/initWebsocket";
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
