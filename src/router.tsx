@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import { DashboardPage } from "./pages/Dashboard";
-import { LoginPage } from "./pages/Login_test";
+import { LoginPage } from "./pages/Login";
 
 export const router = createBrowserRouter(
   createRoutesFromElements([
