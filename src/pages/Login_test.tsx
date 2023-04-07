@@ -51,7 +51,7 @@ export const LoginPage: React.FC = () => {
           src={Titul}
           draggable="false"
         />
-        <div className="bg-primary-dark/60 rounded-lg w-[1500px] h-max animate-boxAnimation backdrop-blur-md">
+        <div className="bg-primary-dark/60 rounded-lg w-[1500px] min-h-[1200px] animate-boxAnimation backdrop-blur-md">
           <div className="flex flex-col items-start gap-10 p-10">
             <div className="text-white font-medium text-[50px] flex flex-row flex-wrap max-w-[700px]">
               <div className="text-[20px] mt-5 mr-5 font-medium w-min h-min px-2 rounded-2xl border-2">
