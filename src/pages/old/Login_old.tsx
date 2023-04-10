@@ -1,11 +1,11 @@
-import { AppLayout } from "../components/Layout/Layout";
-import { GoogleLogo } from "../assets/googleLogo";
-import { firebaseConfig } from "../services/firebase/config";
-import { loginWithGoogle } from "../services/firebase/infrastructure/loginWithGoogle";
+import { AppLayout } from "../../components/Layout/Layout";
+import { GoogleLogo } from "../../assets/googleLogo";
+import { firebaseConfig } from "../../services/firebase/config";
+import { loginWithGoogle } from "../../services/firebase/infrastructure/loginWithGoogle";
 import { useEffect } from "react";
-import { initFirebase } from "../services/firebase/infrastructure/initFirebase";
-import { loginUser } from "../services/user/domain/loginUser";
-import { getIsLoggedStore } from "../services/user/infrastructure/getIsLoggedStore";
+import { initFirebase } from "../../services/firebase/infrastructure/initFirebase";
+import { loginUser } from "../../services/user/domain/loginUser";
+import { getIsLoggedStore } from "../../services/user/infrastructure/getIsLoggedStore";
 import { Navigate } from "react-router";
 
 export const LoginPage: React.FC = () => {

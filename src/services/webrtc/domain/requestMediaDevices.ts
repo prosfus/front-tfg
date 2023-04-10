@@ -12,6 +12,10 @@ export const requestMediaDevices = () => {
     });
 };
 
+export const hasStream = () => {
+  return !!WEBRRTC_STREAM;
+};
+
 export const getStream = () => {
   return WEBRRTC_STREAM;
 };

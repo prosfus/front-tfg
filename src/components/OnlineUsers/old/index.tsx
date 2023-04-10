@@ -1,12 +1,10 @@
-import { getOnlineUsersDomain } from "../../services/onlineUsers/domain/getOnlineUsersDomain";
-import { getWebsocketIdDomain } from "../../services/user/domain/getWebsocketIdDomain";
+import { getOnlineUsersDomain } from "../../../services/onlineUsers/domain/getOnlineUsersDomain";
+import { getWebsocketIdDomain } from "../../../services/user/domain/getWebsocketIdDomain";
 import { OnlineUserCard } from "./OnlineUserCard";
 
 export const OnlineUsersList: React.FC = () => {
   const websocketId = getWebsocketIdDomain(true);
-  const onlineUsers = getOnlineUsersDomain(true).filter((u) => {
-    return u.id !== websocketId;
-  });
+  const onlineUsers = getOnlineUsersDomain(true);
 
   if (onlineUsers.length === 0) {
     return <div className="mt-10 text-white text-3xl">No online users</div>;

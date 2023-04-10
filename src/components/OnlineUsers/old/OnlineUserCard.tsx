@@ -1,6 +1,6 @@
-import { PhoneSvg } from "../../assets/phoneSvg";
-import { User } from "../../models/user";
-import { CallFunctions } from "../../services/peer/initPeer";
+import { PhoneSvg } from "../../../assets/phoneSvg";
+import { User } from "../../../models/user";
+import { CallFunctions } from "../../../services/peer/initPeer";
 
 interface Props {
   user: User;

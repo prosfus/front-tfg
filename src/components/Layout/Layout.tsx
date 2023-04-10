@@ -7,13 +7,13 @@ interface Props {
 export const AppLayout: React.FC<Props> = ({ children }) => {
   const isLogged = getIsLoggedDomain(true);
 
-  if (!isLogged) {
-    return (
-      <div className="h-screen overflow-hidden bg-pika bg-cover">
-        <div className="w-full h-full backdrop-blur-md">{children}</div>
-      </div>
-    );
-  }
+  //if (!isLogged) {
+  return (
+    <div className="h-screen overflow-hidden bg-pika bg-cover">
+      <div className="w-full h-full backdrop-blur-md">{children}</div>
+    </div>
+  );
+  //}
 
   return (
     <div className="h-screen overflow-hidden">

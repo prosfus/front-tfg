@@ -8,6 +8,7 @@ import { loginUser } from "../services/user/domain/loginUser";
 import { getIsLoggedStore } from "../services/user/infrastructure/getIsLoggedStore";
 import { Navigate } from "react-router";
 import { motion } from "framer-motion";
+import { WebRTC_title } from "../components/Title";
 
 export const LoginPage: React.FC = () => {
   const isLogged = getIsLoggedStore(true);
@@ -37,19 +38,7 @@ export const LoginPage: React.FC = () => {
           "w-screen overflow-hidden flex flex-col justify-start gap-10 p-10"
         }
       >
-        <motion.img
-          animate={{
-            width: ["900px", "900px"],
-            height: ["1000px", "200px"],
-            opacity: [0, 0.1, 1],
-          }}
-          transition={{
-            duration: 1,
-            ease: "easeInOut",
-          }}
-          src={Titul}
-          draggable="false"
-        />
+        <WebRTC_title />
         <motion.div
           animate={{
             marginTop: ["1000px", "0px"],
