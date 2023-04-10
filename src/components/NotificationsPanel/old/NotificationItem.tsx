@@ -1,6 +1,6 @@
-import { PhoneSvg } from "../../assets/phoneSvg";
-import { Notification } from "../../models/calls";
-import { acceptCall } from "../../services/peer/initPeer";
+import { PhoneSvg } from "../../../assets/phoneSvg";
+import { Notification } from "../../../models/calls";
+import { acceptCall } from "../../../services/peer/initPeer";
 
 interface NotificationItemProps {
   notification: Notification;

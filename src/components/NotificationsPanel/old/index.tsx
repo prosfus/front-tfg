@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { PhoneSvg } from "../../assets/phoneSvg";
-import { User } from "../../models/user";
-import { getNotificationsDomain } from "../../services/calls/domain/getNotificationsDomain";
+import { PhoneSvg } from "../../../assets/phoneSvg";
+import { User } from "../../../models/user";
+import { getNotificationsDomain } from "../../../services/calls/domain/getNotificationsDomain";
 import { NotificationItem } from "./NotificationItem";
 
 export const NotificationsPanel = () => {

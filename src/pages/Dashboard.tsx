@@ -9,22 +9,19 @@ import { getUserDomain } from "../services/user/domain/getUserDomain";
 import { getWebsocketIdDomain } from "../services/user/domain/getWebsocketIdDomain";
 import {
   getStream,
+  hasStream,
   requestMediaDevices,
 } from "../services/webrtc/domain/requestMediaDevices";
 import { initWebsocket } from "../services/websocket/infrastructure/initWebsocket";
 import { motion } from "framer-motion";
 import { WebRTC_title } from "../components/Title";
 import { UsersPopover } from "../components/OnlineUsers/UsersPopover";
+import { NotificationsPanel } from "../components/NotificationsPanel/NotificationsPanel";
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const websocketId = getWebsocketIdDomain(true);
   const [peer, setPeer] = useState<Peer>();
-  const [text, setText] = useState("");
-  const user = getUserDomain(true);
-  const stream = getStream();
-  const clientVideoRef = useRef<HTMLVideoElement>(null);
-  const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const isLogged = getIsLoggedDomain(false);
@@ -32,13 +29,10 @@ export const DashboardPage: React.FC = () => {
       navigate("/");
       return;
     }
-    requestMediaDevices().then((stream) => {
-      if (clientVideoRef?.current && stream) {
-        clientVideoRef.current.srcObject = stream;
-        // I dont want to hear myself
-        clientVideoRef.current.muted = true;
-      }
-    });
+    if (!hasStream()) {
+      requestMediaDevices();
+    }
+
     if (!websocketId) {
       initWebsocket();
       requestMediaDevices();
@@ -71,6 +65,7 @@ export const DashboardPage: React.FC = () => {
             </div>
           </div>
         </div>
+        <NotificationsPanel />
       </div>
     </AppLayout>
   );

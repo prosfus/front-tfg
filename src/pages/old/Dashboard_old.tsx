@@ -2,7 +2,7 @@ import Peer from "peerjs";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { AppLayout } from "../../components/Layout/Layout";
-import { NotificationsPanel } from "../../components/NotificationsPanel";
+import { NotificationsPanel } from "../../components/NotificationsPanel/old";
 import { OnlineUsersList } from "../../components/OnlineUsers/old";
 import { OnlineUserCard } from "../../components/OnlineUsers/old/OnlineUserCard";
 import { initPeer } from "../../services/peer/initPeer";
