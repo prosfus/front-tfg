@@ -4,6 +4,7 @@ import { User } from "../../models/user";
 import { getNotificationsDomain } from "../calls/domain/getNotificationsDomain";
 import { setNotificationsDomain } from "../calls/domain/setNotificationsStore";
 import { getStream } from "../webrtc/domain/requestMediaDevices";
+import { pushCall } from "../calls/domain/pushCallDomain";
 
 let PEER: Peer;
 export const initPeer = (websocketId: string) => {
@@ -21,8 +22,9 @@ export const initPeer = (websocketId: string) => {
     setNotificationsDomain(notifications);
     call.on("stream", (stream) => {
       console.log("Stream received");
-      const nose = document.getElementById("remoteVideo") as HTMLVideoElement;
-      nose.srcObject = stream;
+      /*const nose = document.getElementById("remoteVideo") as HTMLVideoElement;
+      nose.srcObject = stream;*/
+      pushCall(call.metadata.user, stream);
     });
   });
 
@@ -44,8 +46,11 @@ export const startCall = (user: User) => {
   let call = PEER.call(user.id, stream, { metadata: { user: user } });
   call.on("stream", (stream) => {
     console.log("Stream received");
-    const nose = document.getElementById("remoteVideo") as HTMLVideoElement;
-    nose.srcObject = stream;
+    /*const streamElement = document.getElementById(
+      "remoteVideo"
+    ) as HTMLVideoElement;
+    streamElement.srcObject = stream;*/
+    pushCall(user, stream);
   });
   console.log("Call started");
 };

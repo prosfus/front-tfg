@@ -5,3 +5,8 @@ export interface Notification {
   user: User;
   call: MediaConnection;
 }
+
+export interface Call {
+  user: User;
+  stream: MediaProvider;
+}
