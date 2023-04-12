@@ -51,8 +51,9 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
     if (calls.length && isAccepted) {
       const video = document.getElementById("remoteVideo") as HTMLVideoElement;
       video.srcObject = calls[0].stream;
+      console.log("SRC OBJECT SETTED");
     }
-  }, [calls]);
+  }, [calls, isAccepted]);
 
   return (
     <div
