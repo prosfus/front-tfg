@@ -13,7 +13,7 @@ import {
   requestMediaDevices,
 } from "../services/webrtc/domain/requestMediaDevices";
 import { initWebsocket } from "../services/websocket/infrastructure/initWebsocket";
-import { motion } from "framer-motion";
+import { motion, useAnimate } from "framer-motion";
 import { WebRTC_title } from "../components/Title";
 import { UsersPopover } from "../components/OnlineUsers/UsersPopover";
 import { NotificationsPanel } from "../components/NotificationsPanel/NotificationsPanel";
@@ -24,6 +24,22 @@ export const DashboardPage: React.FC = () => {
   const websocketId = getWebsocketIdDomain(true);
   const [peer, setPeer] = useState<Peer>();
   const calls = getCallsDomain(true);
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    if (calls.length) {
+      console.log("calls");
+
+      animate(
+        scope.current,
+        {
+          opacity: 0,
+          transform: "translateY(-50%)",
+        },
+        { duration: 1, ease: "easeInOut" }
+      );
+    }
+  }, [calls]);
 
   useEffect(() => {
     const isLogged = getIsLoggedDomain(false);
@@ -43,15 +59,6 @@ export const DashboardPage: React.FC = () => {
     }
   }, [websocketId]);
 
-  useEffect(() => {
-    if (calls.length > 0) {
-      const video = document.getElementById("remoteVideo") as HTMLVideoElement;
-      if (video) {
-        video.srcObject = calls[0].stream;
-      }
-    }
-  }, [calls]);
-
   return (
     <AppLayout>
       <div
@@ -60,7 +67,10 @@ export const DashboardPage: React.FC = () => {
         }
       >
         <WebRTC_title exitAnimation />
-        <div className="bg-primary-dark/60 rounded-lg w-[1500px] backdrop-blur-md z-20">
+        <div
+          ref={scope}
+          className="bg-primary-dark/60 rounded-lg w-[1500px] backdrop-blur-md z-20"
+        >
           <div className="flex flex-col items-start gap-10 p-10">
             <div className="text-white font-medium text-[50px] flex flex-row flex-wrap max-w-[700px]">
               <div className="text-[20px] mt-5 mr-5 font-medium w-min h-min px-2 rounded-2xl border-2">
@@ -77,17 +87,6 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
         <NotificationsPanel />
-        {calls.map((call: any, idx) => {
-          return (
-            <video
-              id="remoteVideo"
-              key={idx}
-              height={500}
-              width={500}
-              autoPlay
-            />
-          );
-        })}
       </div>
     </AppLayout>
   );
