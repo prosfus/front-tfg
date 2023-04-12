@@ -50,8 +50,10 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
   useEffect(() => {
     if (calls.length && isAccepted) {
       const video = document.getElementById("remoteVideo") as HTMLVideoElement;
-      video.srcObject = calls[0].stream;
-      console.log("SRC OBJECT SETTED");
+      if (video) {
+        video.srcObject = calls[0].stream;
+        console.log("SRC OBJECT SETTED");
+      }
     }
   }, [calls, isAccepted]);
 
@@ -60,7 +62,11 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
       ref={scope}
       className="z-0 h-44 w-[300px] bg-primary-dark/40 rounded-lg backdrop-blur-md flex flex-col items-center justify-center gap-5"
     >
-      {isAccepted && <video id="remoteVideo" height={500} width={500}></video>}
+      {isAccepted && (
+        <div className="bg-red-400 h-600 w-600">
+          <video id="remoteVideo" autoPlay height={500} width={500}></video>
+        </div>
+      )}
       {!isAccepted && (
         <>
           <label className="text-4xl text-white">
