@@ -18,6 +18,7 @@ import { WebRTC_title } from "../components/Title";
 import { UsersPopover } from "../components/OnlineUsers/UsersPopover";
 import { NotificationsPanel } from "../components/NotificationsPanel/NotificationsPanel";
 import { getCallsDomain } from "../services/calls/domain/getCallsDomain";
+import { Videocall } from "../components/Videocall";
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,13 +29,20 @@ export const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     if (calls.length) {
-      console.log("calls");
-
       animate(
         scope.current,
         {
           opacity: 0,
           transform: "translateY(-50%)",
+        },
+        { duration: 1, ease: "easeInOut" }
+      );
+    } else {
+      animate(
+        scope.current,
+        {
+          opacity: 1,
+          transform: "translateY(0%)",
         },
         { duration: 1, ease: "easeInOut" }
       );
@@ -87,6 +95,7 @@ export const DashboardPage: React.FC = () => {
           </div>
         </div>
         <NotificationsPanel />
+        {<Videocall />}
       </div>
     </AppLayout>
   );

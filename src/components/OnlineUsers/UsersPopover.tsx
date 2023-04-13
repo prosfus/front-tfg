@@ -52,7 +52,13 @@ export const UsersPopover = () => {
             <label className="p-5 text-2xl font-bold">Online users:</label>
             <div className="h-full">
               {onlineUsers.map((user) => {
-                return <PopoverUserItem key={user.id} user={user} />;
+                return (
+                  <PopoverUserItem
+                    key={user.id}
+                    user={user}
+                    setIsOpen={setIsOpen}
+                  />
+                );
               })}
             </div>
           </motion.div>

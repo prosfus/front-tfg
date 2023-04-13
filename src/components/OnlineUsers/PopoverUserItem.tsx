@@ -6,11 +6,13 @@ import {
   hasStream,
   requestMediaDevices,
 } from "../../services/webrtc/domain/requestMediaDevices";
+import { setNotificationsDomain } from "../../services/calls/domain/setNotificationsStore";
 
 interface Props {
   user: User;
+  setIsOpen: (isOpen: boolean) => void;
 }
-export const PopoverUserItem = ({ user }: Props) => {
+export const PopoverUserItem = ({ user, setIsOpen }: Props) => {
   const [hover, setHover] = useState(false);
 
   const variants = {
@@ -28,6 +30,7 @@ export const PopoverUserItem = ({ user }: Props) => {
   const handleClick = () => {
     if (hasStream()) {
       CallFunctions.startCall(user);
+      setIsOpen(false);
     } else {
       requestMediaDevices().then((stream) => {
         if (stream) CallFunctions.startCall(user);
