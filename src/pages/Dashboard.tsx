@@ -12,23 +12,23 @@ import {
   hasStream,
   requestMediaDevices,
 } from "../services/webrtc/domain/requestMediaDevices";
-import { initWebsocket } from "../services/websocket/infrastructure/initWebsocket";
+import { initWebsocket } from "../services/websocket/infrastructure/socket";
 import { motion, useAnimate } from "framer-motion";
 import { WebRTC_title } from "../components/Title";
 import { UsersPopover } from "../components/OnlineUsers/UsersPopover";
 import { NotificationsPanel } from "../components/NotificationsPanel/NotificationsPanel";
-import { getCallsDomain } from "../services/calls/domain/getCallsDomain";
+import { getCallDomain } from "../services/calls/domain/getCallsDomain";
 import { Videocall } from "../components/Videocall";
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
   const websocketId = getWebsocketIdDomain(true);
   const [peer, setPeer] = useState<Peer>();
-  const calls = getCallsDomain(true);
+  const call = getCallDomain(true);
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
-    if (calls.length) {
+    if (call) {
       animate(
         scope.current,
         {
@@ -47,7 +47,7 @@ export const DashboardPage: React.FC = () => {
         { duration: 1, ease: "easeInOut" }
       );
     }
-  }, [calls]);
+  }, [call]);
 
   useEffect(() => {
     const isLogged = getIsLoggedDomain(false);

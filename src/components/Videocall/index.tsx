@@ -1,21 +1,64 @@
-import { useEffect } from "react";
-import { getCallsDomain } from "../../services/calls/domain/getCallsDomain";
+import { useEffect, useMemo } from "react";
+import { getCallDomain } from "../../services/calls/domain/getCallsDomain";
 import { motion } from "framer-motion";
-import { hangupCall } from "../../services/peer/initPeer";
 import { PhoneSvg } from "../../assets/phoneSvg";
+import { callUser, getPeer } from "../../services/peer/initPeer";
+import { getWebsocketIdDomain } from "../../services/user/domain/getWebsocketIdDomain";
+import { getStream } from "../../services/webrtc/domain/requestMediaDevices";
+import { useCustomEventListener } from "react-custom-events";
+import { pushCall } from "../../services/calls/domain/pushCallDomain";
+import { Video } from "./Video";
+import { UsersPopover } from "../OnlineUsers/UsersPopover";
+import { hangupCall } from "../../services/websocket/infrastructure/socket";
 
 export const Videocall = () => {
-  const calls = getCallsDomain(true);
-  useEffect(() => {
-    if (calls.length) {
-      const video = document.getElementById("remoteVideo") as HTMLVideoElement;
-      if (video) {
-        video.srcObject = calls[0].stream;
-      }
-    }
-  }, [calls]);
+  const call = getCallDomain(true);
+  const peer = useMemo(() => getPeer(), []);
+  const websocketId = getWebsocketIdDomain(true);
 
-  if (calls.length === 0) {
+  useCustomEventListener(
+    "streamReceived",
+    (data: { stream: MediaStream; user: string }) => {
+      const c = getCallDomain(false);
+      if (!c) return;
+
+      let updatedCall = { ...c };
+
+      updatedCall.streams = [
+        ...c.streams.filter((s) => s.user !== data.user),
+        {
+          stream: data.stream,
+          user: data.user,
+        },
+      ];
+
+      pushCall(updatedCall);
+    }
+  );
+
+  useEffect(() => {}, [call?.streams]);
+
+  useEffect(() => {
+    if (call && websocketId) {
+      const stream = getStream();
+      call.userIds.forEach((userId) => {
+        if (userId === websocketId) return;
+        if (call.streams?.some((s) => s.user === userId)) return;
+
+        //Llamar a los usuarios que tengan un id menor al mio.
+        // Esto es para evitar que se hagan llamadas duplicadas.
+        if (websocketId < userId) {
+          console.log("calling user");
+
+          callUser(userId, stream);
+        }
+      });
+    }
+  }, [call]);
+
+  console.log(call);
+
+  if (!call) {
     return <></>;
   }
 
@@ -25,24 +68,20 @@ export const Videocall = () => {
       transition={{ duration: 2, times: [0, 0.5, 1] }}
       className="opacity-0 absolute top-0 left-0 w-screen h-screen bg-primary-dark/40 rounded-lg backdrop-blur-md text-white flex flex-col items-center justify-center gap-5"
     >
-      <div className="relative">
-        <div className="p-2 absolute top-2 left-2 bg-primary-dark/50 rounded-md">
-          <label className=" text-2xl">{calls[0].user.name}</label>
+      {call?.streams.map((s, index) => {
+        return <Video key={index} stream={s} />;
+      })}
+      <div className="flex flex-row">
+        <UsersPopover addUser />
+        <div
+          className="bg-red-600 cursor-pointer flex items-center justify-center p-3  rounded-full"
+          onClick={() => {
+            //hangupCall(calls[0]);
+            hangupCall();
+          }}
+        >
+          <PhoneSvg />
         </div>
-        <video
-          id="remoteVideo"
-          className="rounded-lg h-[600px] border border-primary-dark/60"
-          autoPlay
-          height={800}
-        ></video>
-      </div>
-      <div
-        className="bg-red-600 cursor-pointer p-3 rounded-full"
-        onClick={() => {
-          hangupCall(calls[0]);
-        }}
-      >
-        <PhoneSvg />
       </div>
     </motion.div>
   );
