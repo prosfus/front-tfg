@@ -39,7 +39,11 @@ socket.on("callUpdate", (callUpdated: Call) => {
   console.log("Event: updateCall", callUpdated);
 
   const call = getCallDomain(false);
-  pushCall({ ...callUpdated, streams: call?.streams || [] });
+  pushCall({
+    ...callUpdated,
+    streams:
+      call?.streams?.filter((s) => callUpdated.userIds.includes(s.user)) || [],
+  });
 });
 
 socket.on(
@@ -64,13 +68,26 @@ export const startCall = (userToCallId: string) => {
   socket.emit("createCall", { creatorId: websocketId, userToCallId });
 };
 
+export const addUserToCall = (userToAddId: string) => {
+  const websocketId = getWebsocketIdDomain(false);
+  const call = getCallDomain(false);
+  if (!websocketId || !call) return;
+
+  socket.emit("callUser", { userToAddId, websocketId, callId: call.callId });
+};
+
 export const acceptCall = (notification: Notification) => {
   socket.emit("answerCall", { callId: notification.callId });
   removeNotification(notification);
 };
 
-export const hangupViaWS = (id: string, connectionId: string) => {
-  socket.emit("hangupCall", { to: id, connectionId: connectionId });
+export const hangupCall = () => {
+  const websocketId = getWebsocketIdDomain(false);
+  const call = getCallDomain(false);
+  if (!websocketId || !call) return;
+
+  socket.emit("hangupCall", { callId: call.callId });
+  pushCall(null);
 };
 
 export const initWebsocket = () => {

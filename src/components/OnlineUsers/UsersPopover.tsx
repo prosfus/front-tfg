@@ -2,10 +2,13 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { getOnlineUsersDomain } from "../../services/onlineUsers/domain/getOnlineUsersDomain";
 import { PopoverUserItem } from "./PopoverUserItem";
+import { getCallDomain } from "../../services/calls/domain/getCallsDomain";
 
-export const UsersPopover = () => {
+export const UsersPopover = (props: { addUser?: boolean }) => {
+  const { addUser } = props;
   const [isOpen, setIsOpen] = useState(false);
   const onlineUsers = getOnlineUsersDomain(true);
+  const call = getCallDomain(true);
 
   const variants = {
     open: {
@@ -30,7 +33,7 @@ export const UsersPopover = () => {
         }}
         className="bg-white text-2xl p-3 px-6 text-black font-bold rounded-md shadow-xl flex flex-row items-center justify-around gap-3 transition duration-400 hover:duration-400 hover:bg-white/80"
       >
-        + New call
+        {addUser ? "+ Add user" : "+ New call"}
       </button>
       <div>
         {
@@ -42,19 +45,28 @@ export const UsersPopover = () => {
               ease: "easeInOut",
             }}
             style={{ originX: 0, originY: 0 }}
-            className="absolute bg-white rounded-lg shadow-2xl mt-5 flex flex-col"
+            className={
+              "absolute bg-white rounded-lg shadow-2xl flex flex-col " +
+              (addUser ? "bottom-[110%] text-black" : "mt-5")
+            }
           >
             <label className="p-5 text-2xl font-bold">Online users:</label>
             <div className="h-full">
-              {onlineUsers.map((user) => {
-                return (
-                  <PopoverUserItem
-                    key={user.id}
-                    user={user}
-                    setIsOpen={setIsOpen}
-                  />
-                );
-              })}
+              {onlineUsers
+                .filter((u) => {
+                  if (!call) return true;
+                  return !call.userIds.includes(u.id);
+                })
+                .map((user) => {
+                  return (
+                    <PopoverUserItem
+                      addUser={!!addUser}
+                      key={user.id}
+                      user={user}
+                      setIsOpen={setIsOpen}
+                    />
+                  );
+                })}
             </div>
           </motion.div>
         }

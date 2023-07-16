@@ -8,6 +8,8 @@ import { getStream } from "../../services/webrtc/domain/requestMediaDevices";
 import { useCustomEventListener } from "react-custom-events";
 import { pushCall } from "../../services/calls/domain/pushCallDomain";
 import { Video } from "./Video";
+import { UsersPopover } from "../OnlineUsers/UsersPopover";
+import { hangupCall } from "../../services/websocket/infrastructure/socket";
 
 export const Videocall = () => {
   const call = getCallDomain(true);
@@ -45,7 +47,11 @@ export const Videocall = () => {
 
         //Llamar a los usuarios que tengan un id menor al mio.
         // Esto es para evitar que se hagan llamadas duplicadas.
-        if (websocketId < userId) callUser(userId, stream);
+        if (websocketId < userId) {
+          console.log("calling user");
+
+          callUser(userId, stream);
+        }
       });
     }
   }, [call]);
@@ -65,13 +71,17 @@ export const Videocall = () => {
       {call?.streams.map((s, index) => {
         return <Video key={index} stream={s} />;
       })}
-      <div
-        className="bg-red-600 cursor-pointer p-3 rounded-full"
-        onClick={() => {
-          //hangupCall(calls[0]);
-        }}
-      >
-        <PhoneSvg />
+      <div className="flex flex-row">
+        <UsersPopover addUser />
+        <div
+          className="bg-red-600 cursor-pointer flex items-center justify-center p-3  rounded-full"
+          onClick={() => {
+            //hangupCall(calls[0]);
+            hangupCall();
+          }}
+        >
+          <PhoneSvg />
+        </div>
       </div>
     </motion.div>
   );

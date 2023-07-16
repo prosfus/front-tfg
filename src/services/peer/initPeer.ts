@@ -15,12 +15,13 @@ export const initPeer = (websocketId: string) => {
   });
 
   PEER.on("call", (call) => {
+    console.log("call");
+
     const stream = getStream();
     call.answer(stream);
 
     call.on("stream", (stream) => {
       console.log("Stream received");
-      //pushCall(call.metadata.user, stream, call);
       emitCustomEvent("streamReceived", { stream, user: call.metadata.user });
     });
     call.on("close", () => {
@@ -41,6 +42,7 @@ export const callUser = (userToCall: string, stream: MediaStream) => {
   const wesocketId = getWebsocketIdDomain(false);
   let call = PEER.call(userToCall, stream, { metadata: { user: wesocketId } });
   call?.on("stream", (stream) => {
+    console.log("Stream received");
     emitCustomEvent("streamReceived", { stream, user: userToCall });
   });
 };
