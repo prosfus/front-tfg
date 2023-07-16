@@ -13,7 +13,7 @@ import {
   getStream,
   requestMediaDevices,
 } from "../../services/webrtc/domain/requestMediaDevices";
-import { initWebsocket } from "../../services/websocket/infrastructure/initWebsocket";
+import { initWebsocket } from "../../services/websocket/infrastructure/socket";
 
 export const DashboardPage: React.FC = () => {
   const navigate = useNavigate();

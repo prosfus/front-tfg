@@ -1,14 +1,20 @@
-import { MediaConnection } from "peerjs";
 import { User } from "./user";
 
 export interface Notification {
   user: User;
-  call: MediaConnection;
-  orientation: "outgoing" | "incoming";
+  orientation: NotificationOrientation;
+  callId: string;
 }
 
+export interface CallStream {
+  user: string;
+  stream: MediaStream;
+}
+
+export type NotificationOrientation = "outgoing" | "incoming";
+
 export interface Call {
-  user: User;
-  stream: MediaProvider;
-  call: MediaConnection;
+  callId: string;
+  userIds: string[];
+  streams: CallStream[];
 }

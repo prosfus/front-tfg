@@ -2,15 +2,10 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { getOnlineUsersDomain } from "../../services/onlineUsers/domain/getOnlineUsersDomain";
 import { PopoverUserItem } from "./PopoverUserItem";
-import { User } from "../../models/user";
 
 export const UsersPopover = () => {
   const [isOpen, setIsOpen] = useState(false);
   const onlineUsers = getOnlineUsersDomain(true);
-  const user: User = {
-    id: "1",
-    name: "test",
-  };
 
   const variants = {
     open: {

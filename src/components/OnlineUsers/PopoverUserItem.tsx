@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { User } from "../../models/user";
-import { CallFunctions } from "../../services/peer/initPeer";
 import {
   hasStream,
   requestMediaDevices,
 } from "../../services/webrtc/domain/requestMediaDevices";
 import { setNotificationsDomain } from "../../services/calls/domain/setNotificationsStore";
+import { startCall } from "../../services/websocket/infrastructure/socket";
 
 interface Props {
   user: User;
@@ -29,11 +29,11 @@ export const PopoverUserItem = ({ user, setIsOpen }: Props) => {
 
   const handleClick = () => {
     if (hasStream()) {
-      CallFunctions.startCall(user);
+      startCall(user.id);
       setIsOpen(false);
     } else {
       requestMediaDevices().then((stream) => {
-        if (stream) CallFunctions.startCall(user);
+        if (stream) startCall(user.id);
       });
     }
   };

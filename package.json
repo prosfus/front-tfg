@@ -14,6 +14,7 @@
     "framer-motion": "^10.11.2",
     "peerjs": "^1.4.7",
     "react": "^18.2.0",
+    "react-custom-events": "^1.1.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router": "^6.8.0",

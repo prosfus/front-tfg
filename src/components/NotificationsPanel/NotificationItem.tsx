@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { acceptCall } from "../../services/peer/initPeer";
 import {
   motion,
   useAnimate,
@@ -8,8 +7,9 @@ import {
 } from "framer-motion";
 import { Notification } from "../../models/calls";
 import { PhoneSvg } from "../../assets/phoneSvg";
-import { getCallsDomain } from "../../services/calls/domain/getCallsDomain";
+import { getCallDomain } from "../../services/calls/domain/getCallsDomain";
 import { getNotificationsDomain } from "../../services/calls/domain/getNotificationsDomain";
+import { acceptCall } from "../../services/websocket/infrastructure/socket";
 
 interface Props {
   notification: Notification;
@@ -50,7 +50,7 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
   const [scope, animate] = useAnimate();
   const [scope2, animOpacity] = useAnimate();
   const [isAccepted, setIsAccepted] = useState(false);
-  const calls = getCallsDomain(true);
+  const calls = getCallDomain(true);
 
   const callAcceptedAnimations = () => {
     animate(
@@ -86,7 +86,7 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
     if (x.get() < -50) {
       console.log("reject");
     } else if (x.get() > 50) {
-      acceptCall(notification.call);
+      acceptCall(notification);
       callAcceptedAnimations();
       setIsAccepted(true);
     }
@@ -99,13 +99,13 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
   );
 
   useEffect(() => {
-    if (calls.length && isAccepted) {
+    if (calls && isAccepted) {
       const video = document.getElementById("remoteVideo") as HTMLVideoElement;
       if (video) {
-        video.srcObject = calls[0].stream;
+        //video.srcObject = calls[0].stream;
       }
     }
-    if (calls.length > 0) {
+    if (calls) {
       callAcceptedAnimations();
     }
   }, [calls, isAccepted]);
@@ -151,7 +151,6 @@ export const NotificationItem: React.FC<Props> = ({ notification }) => {
         )}
         {notification.orientation === "incoming" && (
           <>
-            {" "}
             <motion.div
               drag="x"
               style={{

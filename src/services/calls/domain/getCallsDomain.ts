@@ -1,5 +1,5 @@
 import { getCallsStore } from "../infrastructure/getCallsStore";
 
-export const getCallsDomain = (shouldUseHook: boolean) => {
+export const getCallDomain = (shouldUseHook: boolean) => {
   return getCallsStore(shouldUseHook);
 };

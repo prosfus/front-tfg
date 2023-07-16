@@ -5,12 +5,12 @@ import { Call, Notification } from "../../../models/calls";
 
 interface CallsSliceState {
   notifications: Notification[];
-  calls: Call[];
+  call: Call | null;
 }
 
 const initialState: CallsSliceState = {
   notifications: [],
-  calls: [],
+  call: null,
 };
 const callsSlice = createSlice({
   name: "calls",
@@ -19,8 +19,8 @@ const callsSlice = createSlice({
     setNotifications(state, action: PayloadAction<Notification[]>) {
       state.notifications = action.payload;
     },
-    setCalls(state, action: PayloadAction<Call[]>) {
-      state.calls = action.payload;
+    setCalls(state, action: PayloadAction<Call | null>) {
+      state.call = action.payload;
     },
   },
 });
