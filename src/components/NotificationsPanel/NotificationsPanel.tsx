@@ -1,15 +1,4 @@
-import {
-  motion,
-  useAnimate,
-  useMotionValue,
-  useMotionValueEvent,
-  useTransform,
-} from "framer-motion";
 import { getNotificationsDomain } from "../../services/calls/domain/getNotificationsDomain";
-import { PhoneSvg } from "../../assets/phoneSvg";
-import { useEffect, useRef, useState } from "react";
-import { acceptCall } from "../../services/peer/initPeer";
-import { Notification } from "../../models/calls";
 import { NotificationItem } from "./NotificationItem";
 
 export const NotificationsPanel = () => {
