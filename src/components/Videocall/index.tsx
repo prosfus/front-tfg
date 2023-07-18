@@ -68,9 +68,11 @@ export const Videocall = () => {
       transition={{ duration: 2, times: [0, 0.5, 1] }}
       className="opacity-0 absolute top-0 left-0 w-screen h-screen bg-primary-dark/40 rounded-lg backdrop-blur-md text-white flex flex-col items-center justify-center gap-5"
     >
-      {call?.streams.map((s, index) => {
-        return <Video key={index} stream={s} />;
-      })}
+      <div className="min-h-[500px] bg-red-400">
+        {call?.streams.map((s, index) => {
+          return <Video key={index} stream={s} />;
+        })}
+      </div>
       <div className="flex flex-row">
         <UsersPopover addUser />
         <div

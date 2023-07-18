@@ -47,7 +47,7 @@ export const UsersPopover = (props: { addUser?: boolean }) => {
             style={{ originX: 0, originY: 0 }}
             className={
               "absolute bg-white rounded-lg shadow-2xl flex flex-col " +
-              (addUser ? "bottom-[110%] text-black" : "mt-5")
+              (addUser ? "bottom-[110%] text-black z-50" : "mt-5")
             }
           >
             <label className="p-5 text-2xl font-bold">Online users:</label>

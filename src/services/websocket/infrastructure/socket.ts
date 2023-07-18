@@ -11,7 +11,7 @@ import { removeNotification } from "../../calls/domain/removeNotification";
 import { getCallDomain } from "../../calls/domain/getCallsDomain";
 
 export const socket = io(
-  import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:8080"
+  import.meta.env.VITE_WEBSOCKET_URL || "http://localhost:3000"
 );
 
 socket.on("connect", () => {
@@ -73,7 +73,11 @@ export const addUserToCall = (userToAddId: string) => {
   const call = getCallDomain(false);
   if (!websocketId || !call) return;
 
-  socket.emit("callUser", { userToAddId, websocketId, callId: call.callId });
+  socket.emit("callUser", {
+    userToCallId: userToAddId,
+    callerId: websocketId,
+    callId: call.callId,
+  });
 };
 
 export const acceptCall = (notification: Notification) => {
