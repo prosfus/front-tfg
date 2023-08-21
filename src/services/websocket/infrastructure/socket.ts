@@ -38,12 +38,21 @@ socket.on("createCall", (newCall: Call) => {
 socket.on("callUpdate", (callUpdated: Call) => {
   console.log("Event: updateCall", callUpdated);
 
+  if (callUpdated.userIds.length === 0) {
+    pushCall(null);
+    return;
+  }
+
   const call = getCallDomain(false);
   pushCall({
     ...callUpdated,
     streams:
       call?.streams?.filter((s) => callUpdated.userIds.includes(s.user)) || [],
   });
+});
+
+socket.on("callEnd", () => {
+  pushCall(null);
 });
 
 socket.on(
