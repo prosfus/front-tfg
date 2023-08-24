@@ -68,15 +68,15 @@ export const Videocall = () => {
       transition={{ duration: 2, times: [0, 0.5, 1] }}
       className="opacity-0 absolute top-0 left-0 w-screen h-screen bg-primary-dark/40 rounded-lg backdrop-blur-md text-white flex flex-col items-center justify-center gap-5"
     >
-      <div className="min-h-[500px] bg-red-400">
+      <div className="min-h-[500px]">
         {call?.streams.map((s, index) => {
           return <Video key={index} stream={s} />;
         })}
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-10">
         <UsersPopover addUser />
         <div
-          className="bg-red-600 cursor-pointer flex items-center justify-center p-3  rounded-full"
+          className="bg-red-500 cursor-pointer flex items-center justify-center h-14 w-14 rounded-full"
           onClick={() => {
             //hangupCall(calls[0]);
             hangupCall();

@@ -17,6 +17,9 @@ const onlineUsersSlice = createSlice({
     setOnlineUsers(state, action: PayloadAction<User[]>) {
       state.onlineUsers = action.payload;
     },
+    addUser(state, action: PayloadAction<User>) {
+      state.onlineUsers = [...state.onlineUsers, action.payload];
+    },
   },
 });
 
