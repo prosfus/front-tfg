@@ -11,7 +11,7 @@ let PEER: Peer;
 export const initPeer = (websocketId: string) => {
   PEER = new Peer(websocketId);
   PEER.on("open", () => {
-    console.log("Peer connected");
+    console.log("Peer connected", websocketId);
   });
 
   PEER.on("call", (call) => {
